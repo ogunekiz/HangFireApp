@@ -1,5 +1,6 @@
 using Hangfire;
 using HangFireApp.Context;
+using HangFireApp.Controllers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHangfireDashboard();
+
+RecurringJob.AddOrUpdate("test-job", () => BackgroundTestServices.Test(), Cron.Minutely());
 
 app.UseHttpsRedirection();
 
